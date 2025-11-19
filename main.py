@@ -18,7 +18,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt
 
-from models import Vitals, SymptomInput
+from models import Vitals, SymptomInput, TriageDecision
 from triage_engine import call_gemini_for_triage, apply_rule_safety_layer
 from facilities_google import recommend_facilities
 from history import append_record, load_history
@@ -364,6 +364,12 @@ class MainWindow(QWidget):
 
         card_layout.addSpacing(10)
 
+        # Recommended action (stay home / clinic / urgent care / ER)
+        self.result_destination_label = QLabel("")
+        self.result_destination_label.setWordWrap(True)
+        self.result_destination_label.setStyleSheet("font-size:16px; font-weight:bold;")
+        card_layout.addWidget(self.result_destination_label)
+
         # Red flags line
         self.result_redflags_label = QLabel("<b>Red flags:</b> None")
         self.result_redflags_label.setWordWrap(True)
@@ -696,6 +702,12 @@ class MainWindow(QWidget):
         self.result_score_label.setText(str(d.score))
         self.result_explanation_label.setText(d.explanation or "")
 
+        # Recommended action based on urgency
+        instruction = self._urgency_to_instruction(d.urgency_level)
+        self.result_destination_label.setText(
+            f"<b>Recommended action:</b> {instruction}"
+        )
+
         if d.red_flags:
             self.result_redflags_label.setText(
                 "<b>Red flags:</b> " + ", ".join(d.red_flags)
@@ -742,6 +754,16 @@ class MainWindow(QWidget):
     # ------------------------------------------------------------------
     # Helpers
     # ------------------------------------------------------------------
+    def _urgency_to_instruction(self, urgency: str) -> str:
+        u = (urgency or "").upper()
+        if u == "ER":
+            return "Go to an emergency room immediately."
+        if u == "URGENT":
+            return "Go to an urgent care center as soon as possible."
+        if u == "CLINIC":
+            return "Go to a clinic / primary care provider for evaluation."
+        return "Stay at home and use self-care, unless symptoms worsen."
+    
     def _on_save_clicked(self):
         QMessageBox.information(self, "Saved", "This triage entry is saved under My Data.")
 
