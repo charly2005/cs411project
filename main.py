@@ -524,25 +524,32 @@ class MainWindow(QWidget):
         top_label.setAlignment(Qt.AlignCenter)
         scale_layout.addWidget(top_label)
 
+        # Bar + numbers side by side
+        bar_row = QHBoxLayout()
+        bar_row.setAlignment(Qt.AlignCenter)
+
         bar = QFrame()
         bar.setFixedWidth(35)
         bar.setMinimumHeight(250)
         bar.setStyleSheet(
             "QFrame {"
-            '  border-radius: 10px; border: 2px solid #000;'
+            "  border-radius: 10px; border: 2px solid #000;"
             "  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
             "              stop:0 #FF4C3B, stop:1 #7CD657);"
             "}"
         )
-        scale_layout.addWidget(bar, alignment=Qt.AlignCenter)
+        bar_row.addWidget(bar)
 
-        label_row = QHBoxLayout()
+        numbers_col = QVBoxLayout()
+        numbers_col.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
         for s in [4, 3, 2, 1]:
             lbl = QLabel(str(s))
-            lbl.setAlignment(Qt.AlignLeft)
+            lbl.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
             lbl.setStyleSheet("font-size:12px;")
-            label_row.addWidget(lbl)
-        scale_layout.addLayout(label_row)
+            numbers_col.addWidget(lbl)
+        bar_row.addLayout(numbers_col)
+
+        scale_layout.addLayout(bar_row)
 
         mild_label = QLabel("Mild")
         mild_label.setAlignment(Qt.AlignCenter)
