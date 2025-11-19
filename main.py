@@ -53,6 +53,9 @@ class MainWindow(QWidget):
         self.current_decision = None
         self.current_recs = []
 
+        # Cached history records for "My Data" replay
+        self.history_records = []
+
         self._build_shell()
         self._build_pages()
 
@@ -559,6 +562,7 @@ class MainWindow(QWidget):
         self.stack.setCurrentIndex(1)
 
     def show_history_page(self):
+        # Clear old items
         while self.history_items_layout.count():
             item = self.history_items_layout.takeAt(0)
             w = item.widget()
@@ -566,8 +570,9 @@ class MainWindow(QWidget):
                 w.deleteLater()
 
         records = load_history()
+        self.history_records = records  # store for later replay
 
-        for r in records:
+        for idx, r in enumerate(records):
             score = urgency_to_score(r.urgency_level)
             date_str = r.timestamp.strftime("%m/%d/%y")
 
@@ -582,6 +587,7 @@ class MainWindow(QWidget):
             )
             row_layout = QHBoxLayout(row_widget)
 
+            # colored score dot
             score_label = QLabel(str(score))
             score_label.setAlignment(Qt.AlignCenter)
             score_label.setFixedSize(28, 28)
@@ -599,10 +605,23 @@ class MainWindow(QWidget):
             )
             row_layout.addWidget(score_label)
 
-            text_label = QLabel(r.symptoms_text)
-            text_label.setStyleSheet("font-size:14px;")
-            text_label.setWordWrap(True)
-            row_layout.addWidget(text_label, stretch=1)
+            # clickable text button (looks like plain text)
+            text_button = QPushButton(r.symptoms_text)
+            text_button.setCursor(Qt.PointingHandCursor)
+            text_button.setStyleSheet(
+                "QPushButton {"
+                "  font-size:14px;"
+                "  text-align:left;"
+                "  border:none;"
+                "  background: transparent;"
+                "}"
+                "QPushButton:hover { text-decoration: underline; }"
+            )
+            text_button.setFlat(True)
+            text_button.clicked.connect(
+                lambda _, i=idx: self.open_history_record(i)
+            )
+            row_layout.addWidget(text_button, stretch=1)
 
             date_label = QLabel(date_str)
             date_label.setStyleSheet("font-size:14px; color:#555;")
@@ -611,7 +630,6 @@ class MainWindow(QWidget):
             self.history_items_layout.addWidget(row_widget)
 
         self.history_items_layout.addStretch(1)
-
         self.stack.setCurrentIndex(2)
 
     # ------------------------------------------------------------------
@@ -764,6 +782,33 @@ class MainWindow(QWidget):
             return "Go to a clinic / primary care provider for evaluation."
         return "Stay at home and use self-care, unless symptoms worsen."
     
+    def open_history_record(self, index: int):
+        # When clicking an item in My Data, reopen that session on the Result page.
+        if index < 0 or index >= len(self.history_records):
+            return
+
+        r = self.history_records[index]
+
+        # Restore symptom text in the home page input (optional but nice)
+        self.last_symptoms_text = r.symptoms_text
+        self.symptoms_edit.setText(r.symptoms_text)
+
+        # Reconstruct a minimal TriageDecision from stored urgency
+        score = urgency_to_score(r.urgency_level)
+        self.current_decision = TriageDecision(
+            urgency_level=r.urgency_level,
+            score=score,
+            explanation="(Explanation not stored; this is a replay of a past session.)",
+            red_flags=[],
+        )
+
+        # For now we don't reconstruct facilities from history; just show no facilities
+        self.current_recs = []
+
+        # Update the Result page with this synthetic decision
+        self._update_result_page()
+        self.show_result_page()
+
     def _on_save_clicked(self):
         QMessageBox.information(self, "Saved", "This triage entry is saved under My Data.")
 
