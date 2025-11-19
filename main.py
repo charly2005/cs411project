@@ -433,6 +433,10 @@ class MainWindow(QWidget):
         top_label.setStyleSheet("font-size:14px;")
         scale_layout.addWidget(top_label)
 
+        # Bar + numbers side by side
+        bar_row = QHBoxLayout()
+        bar_row.setAlignment(Qt.AlignCenter)
+
         bar = QFrame()
         bar.setFixedWidth(35)
         bar.setMinimumHeight(250)
@@ -444,20 +448,21 @@ class MainWindow(QWidget):
             "              stop:0 #FF4C3B, stop:1 #7CD657);"
             "}"
         )
-        scale_layout.addWidget(bar, alignment=Qt.AlignCenter)
+        bar_row.addWidget(bar)
 
         self.scale_labels = {}
         numbers_col = QVBoxLayout()
-        numbers_col.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+        numbers_col.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
 
         for s in [4, 3, 2, 1]:
             lbl = QLabel(str(s))
-            lbl.setAlignment(Qt.AlignCenter)
+            lbl.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
             lbl.setStyleSheet("font-size:12px;")
             numbers_col.addWidget(lbl)
             self.scale_labels[s] = lbl
 
-        scale_layout.addLayout(numbers_col)
+        bar_row.addLayout(numbers_col)
+        scale_layout.addLayout(bar_row)
 
         mild_label = QLabel("Mild")
         mild_label.setAlignment(Qt.AlignCenter)
@@ -465,6 +470,7 @@ class MainWindow(QWidget):
         scale_layout.addWidget(mild_label)
 
         layout.addLayout(scale_layout, stretch=1)
+
 
         return page
 
