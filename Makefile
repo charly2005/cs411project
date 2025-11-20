@@ -1,12 +1,17 @@
 # Makefile for CareRoute desktop app
 
-PYTHON ?= python3
+PYTHON ?= python
 VENV_DIR := .venv
 
 # OS-specific python path inside venv
 # On Linux/macOS: .venv/bin/python
 # On Windows (PowerShell): .venv/Scripts/python.exe
-VENV_PYTHON := $(VENV_DIR)/bin/python
+ifeq ($(OS),Windows_NT)
+    VENV_PYTHON     := $(VENV_DIR)/Scripts/python.exe
+else
+    VENV_PYTHON     := $(VENV_DIR)/bin/python
+endif
+# VENV_PYTHON := $(VENV_DIR)/bin/python
 VENV_PIP := $(VENV_DIR)/bin/pip
 
 # If they are on Windows and 'bin' doesn't exist, they can override VENV_PYTHON manually
