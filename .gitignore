@@ -1,0 +1,70 @@
+# Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs
+*.log
+
+
+# Qt / PyQt / PySide
+
+# Qt Designer UI → Python generated files (if you generate .py from .ui)
+*.qrc.py
+*_rc.py
+
+# PyInstaller / Py2Exe / Nuitka outputs
+/*.spec
+/output/
+build/
+dist/
+
+# Qt cache (sometimes created by PySide6 tools)
+.qt/
+QtCache/
+
+
+# Environment files
+
+.env
+.env.*
+*.env
+
+
+# IDE / Editor
+
+# VSCode
+.vscode/
+
+# PyCharm / JetBrains
+.idea/
+
+# LSP / Tools
+.pyright/
+.mypy_cache/
+pytest_cache/
+
+
+# OS
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
