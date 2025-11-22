@@ -2,10 +2,14 @@
 import os
 import json
 from typing import List
+from dotenv import load_dotenv
 
 import google.generativeai as genai
 
 from models import SymptomInput, TriageDecision
+
+
+load_dotenv()
 
 # Load Gemini API key from environment
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")

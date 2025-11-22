@@ -1,8 +1,10 @@
 # geolocation.py
 import os
 from typing import Tuple
-
+from dotenv import load_dotenv
 import requests
+
+load_dotenv()
 
 GOOGLE_MAPS_API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
 GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json"
