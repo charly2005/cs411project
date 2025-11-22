@@ -1,7 +1,7 @@
 import unittest
 
 from triage_engine import call_gemini_for_triage
-from models import SymptomInput, Vitals
+from models import SymptomInput, Vitals, TriageDecision
 from facilities_google import recommend_facilities
 
 class TestMyModule(unittest.TestCase):
@@ -35,7 +35,7 @@ class TestMyModule(unittest.TestCase):
             red_flags=["severe headache", "dizziness"]
         )
         
-        rec = recommend_facilities(decision)
+        rec = recommend_facilities(decision, 34.032845, -118.266266)
         print("Recommendation Output:", rec)
         assert rec is not None
 
