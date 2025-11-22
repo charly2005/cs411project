@@ -2,6 +2,7 @@ import unittest
 
 from triage_engine import call_gemini_for_triage
 from models import SymptomInput, Vitals
+from facilities_google import recommend_facilities
 
 class TestMyModule(unittest.TestCase):
     def test_symptom(self):
@@ -22,6 +23,21 @@ class TestMyModule(unittest.TestCase):
             )
         )
         print("Gemini Raw Output:", gemini_raw)
+        assert gemini_raw is not None
+
+    def test_recommendation(self):
+        print("==Testing recommendation...")
+
+        decision = TriageDecision(
+            urgency_level="URGENT",
+            score=3,
+            explanation="Severe symptoms requiring prompt attention.",
+            red_flags=["severe headache", "dizziness"]
+        )
+        
+        rec = recommend_facilities(decision)
+        print("Recommendation Output:", rec)
+        assert rec is not None
 
 if __name__ == "__main__":
     unittest.main()
