@@ -3,6 +3,8 @@ import unittest
 from triage_engine import call_gemini_for_triage, apply_rule_safety_layer
 from models import SymptomInput, Vitals, TriageDecision
 from facilities_google import recommend_facilities
+from geolocation import geocode_address, GeocodingError
+from history import append_record, load_history
 
 class TestMyModule(unittest.TestCase):
     def test_symptom(self):
@@ -106,6 +108,38 @@ class TestMyModule(unittest.TestCase):
 
         print("Gemini Raw Output: ", gemini_raw.get("red_flags", []) or [])
         assert int(gemini_raw.get("score", 2)) > 2
+
+    def test_geo_code(self):
+        print("==Testing geocoding...")
+
+        address = "02134"
+        
+        try:
+            lat, lon, formatted = geocode_address(address)
+            print(f"Geocoded Address: {formatted}, Lat: {lat}, Lon: {lon}")
+            assert lat > 0 and lon < 0
+        except GeocodingError as e:
+            self.fail(f"GeocodingError raised: {e}")
+
+    def test_history(self):
+        print("==Testing history logging...")
+
+        decision = TriageDecision(
+            urgency_level="CLINIC",
+            score=2,
+            explanation="Mild symptoms, can wait for clinic visit.",
+            red_flags=[]
+        )
+
+        append_record(
+            symptoms_text="Mild cough and sore throat",
+            decision=decision,
+            facility_names=["Clinic A", "Clinic B"]
+        )
+
+        records = load_history()
+        print("Loaded History Records: ", records)
+        assert len(records) > 0
 
 if __name__ == "__main__":
     unittest.main()
