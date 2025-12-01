@@ -2,3 +2,6 @@ PySide6
 requests
 google-generativeai
 python-dotenv
+SpeechRecognition 
+PyAudio
+PyQt5

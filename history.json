@@ -1,0 +1,61 @@
+[
+  {
+    "timestamp": "2025-11-22T03:38:48.936496",
+    "symptoms_text": "Mild cough and sore throat",
+    "urgency_level": "CLINIC",
+    "facility_names": [
+      "Clinic A",
+      "Clinic B"
+    ]
+  },
+  {
+    "timestamp": "2025-11-22T03:14:52.792057",
+    "symptoms_text": "hands are cold, blue",
+    "urgency_level": "ER",
+    "facility_names": [
+      "Mount Auburn Hospital",
+      "CHA Cambridge Hospital",
+      "Beth Israel Deaconess Medical Center"
+    ]
+  },
+  {
+    "timestamp": "2025-11-22T03:08:20.053539",
+    "symptoms_text": "vision loss headache",
+    "urgency_level": "ER",
+    "facility_names": [
+      "Mount Auburn Hospital",
+      "CHA Cambridge Hospital",
+      "Beth Israel Deaconess Medical Center"
+    ]
+  },
+  {
+    "timestamp": "2025-11-22T03:02:33.317643",
+    "symptoms_text": "sharp heart pain",
+    "urgency_level": "ER",
+    "facility_names": [
+      "Mount Auburn Hospital",
+      "CHA Cambridge Hospital",
+      "Beth Israel Deaconess Medical Center"
+    ]
+  },
+  {
+    "timestamp": "2025-11-22T03:00:41.153490",
+    "symptoms_text": "headache front",
+    "urgency_level": "CLINIC",
+    "facility_names": [
+      "CHA Primary Care, Somerville Campus",
+      "Davis Square Family Practice",
+      "Southern Jamaica Plain Community Health Center"
+    ]
+  },
+  {
+    "timestamp": "2025-11-22T02:43:44.774676",
+    "symptoms_text": "headache front",
+    "urgency_level": "ER",
+    "facility_names": [
+      "Mount Auburn Hospital",
+      "CHA Cambridge Hospital",
+      "Beth Israel Deaconess Medical Center"
+    ]
+  }
+]

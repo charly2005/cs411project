@@ -26,7 +26,7 @@ from PySide6.QtWidgets import (  # Import Qt widgets used to build the UI
     QSizePolicy,    # Controls how widgets grow/shrink with layouts
 )
 from PySide6.QtCore import Qt  # Core non-GUI functionality, including alignment flags and cursors
-
+from voice import Microphone
 from models import Vitals, SymptomInput, TriageDecision  # Custom dataclasses for vitals, symptom input, and triage decision
 from triage_engine import call_gemini_for_triage, apply_rule_safety_layer  # Functions to call Gemini and apply safety rules
 from facilities_google import recommend_facilities  # Function to recommend facilities based on triage decision and location
@@ -54,6 +54,7 @@ class MainWindow(QWidget):
 
         self.setWindowTitle("CareRoute Desktop")  # Set the window title
 
+
         # Last resolved user location
         self.lat = None  # Latitude of user's address (float or None)
         self.lon = None  # Longitude of user's address (float or None)
@@ -67,8 +68,70 @@ class MainWindow(QWidget):
         # Cached history records for "My Data" replay
         self.history_records = []  # In-memory storage of previously loaded history items
 
+        # Voice input and storage
+        self.mic_btn = None
+        self.mic = Microphone()
+
+        self.mic.text.connect(self.mic_text)
+        self.mic.error.connect(self.mic_error)
+        self.mic.started.connect(self.mic_started)
+        self.mic.stopped.connect(self.mic_stopped)
+        
         self._build_shell()  # Build top-level shell layout, header, stacked pages, and disclaimer
         self._build_pages()  # Create individual pages and add them to the stacked widget
+
+
+    # --------------------------------
+    # Voice Utilty
+    # --------------------------------
+
+    # UI
+    def mic_started(self):
+        if self.mic_btn:
+            # Change style to indicate recording is active
+            self.mic_btn.setStyleSheet(
+                "QPushButton {"
+                    "  border-radius: 27px;"
+                    "  border: 2px solid #ccc;"
+                    "  background: #f2f2f2;"
+                    "  font-size:20px;"
+                "}"
+            )
+            self.mic_btn.setText("🔴") # Changing icon for recording state
+
+    # UI
+    def mic_stopped(self):
+        if self.mic_btn:
+            # Restore original style
+            self.mic_btn.setStyleSheet(
+                "QPushButton {"
+                    "  border-radius: 27px;"
+                    "  border: 2px solid #ccc;"
+                    "  background: #f2f2f2;"
+                    "  font-size:20px;"
+                "}"
+            )
+            self.mic_btn.setText("🎤") # Restoring original icon
+
+    def mic_error(self, text):
+        print("HIHI")
+        self.mic_stopped()
+        QMessageBox.warning(self, "Voice Input Error", text)
+    
+    def mic_text(self, text):
+        # Append the new text to the current content
+        print("HI")
+        print(text)
+        current_text = self.symptoms_edit.text()
+        
+        # Ensure there's a space if we're appending to existing text
+        if current_text and not current_text.endswith((" ", "\n", "\t")):
+            new_text = current_text + " " + text
+        else:
+            new_text = current_text + text
+            
+        self.symptoms_edit.setText(new_text)
+        self.symptoms_edit.setFocus()
 
     # ------------------------------------------------------------------
     # Shell layout: header, stacked pages, footer disclaimer
@@ -193,11 +256,11 @@ class MainWindow(QWidget):
         )
         center_row.addWidget(self.symptoms_edit)  # Add symptom input to the center row
 
-        # Mic icon (currently decorative only)
-        mic_btn = QPushButton("🎤")  # Microphone emoji button as a visual element
-        mic_btn.setEnabled(False)  # Disable functionality (not wired to audio input)
-        mic_btn.setFixedSize(54, 54)  # Same height as text box for visual alignment
-        mic_btn.setStyleSheet(  # Style to show as a circle-like button
+        # Mic feature
+        self.mic_btn = QPushButton("🎤")
+        self.mic_btn.setEnabled(True)
+        self.mic_btn.setFixedSize(54, 54)
+        self.mic_btn.setStyleSheet(
             "QPushButton {"
             "  border-radius: 27px;"
             "  border: 2px solid #ccc;"
@@ -205,8 +268,11 @@ class MainWindow(QWidget):
             "  font-size:20px;"
             "}"
         )
-        center_row.addSpacing(8)  # Small spacing between text box and mic button
-        center_row.addWidget(mic_btn)  # Add mic button to the row
+        center_row.addSpacing(8)
+        center_row.addWidget(self.mic_btn)
+
+        # pass function itself
+        self.mic_btn.clicked.connect(self.mic.toggle)
 
         # Green arrow button (triage trigger)
         self.triage_button = QPushButton("➜")  # Button that triggers the triage process
