@@ -114,14 +114,11 @@ class MainWindow(QWidget):
             self.mic_btn.setText("🎤") # Restoring original icon
 
     def mic_error(self, text):
-        print("HIHI")
         self.mic_stopped()
         QMessageBox.warning(self, "Voice Input Error", text)
     
     def mic_text(self, text):
         # Append the new text to the current content
-        print("HI")
-        print(text)
         current_text = self.symptoms_edit.text()
         
         # Ensure there's a space if we're appending to existing text
