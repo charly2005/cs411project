@@ -85,6 +85,14 @@ class MainWindow(QWidget):
     # Voice Utilty
     # --------------------------------
 
+    def clear_form(self):
+        """Clear symptom input and vitals after submitting."""
+        self.symptoms_edit.clear()
+        self.temp_edit.clear()
+        self.pain_edit.clear()
+        self.pregnant_cb.setChecked(False)
+        self.trauma_cb.setChecked(False)
+
     # UI
     def mic_started(self):
         if self.mic_btn:
@@ -787,7 +795,7 @@ class MainWindow(QWidget):
 
             self._update_result_page()  # Refresh the Result page with latest info
             self.show_result_page()  # Navigate to the Result page
-
+            self.clear_form()
         except Exception as e:  # Catch any errors during triage process
             QMessageBox.critical(self, "Error", f"Triage failed:\n{e}")  # Show critical error dialog
 
