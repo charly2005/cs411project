@@ -46,8 +46,8 @@ class MicrophoneWorker(QRunnable):
                             frames_per_buffer=CHUNK,
                             input_device_index=self.device_index)
 
-            # Process chunks of 3 seconds at a time
-            CHUNK_COUNT_TO_PROCESS = int(RATE / CHUNK * 3.0)
+            # Process chunks of 10 seconds at a time
+            CHUNK_COUNT_TO_PROCESS = int(RATE / CHUNK * 10.0)
             
             while self._is_running:
 
