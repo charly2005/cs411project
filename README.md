@@ -104,6 +104,7 @@ If successful, you will see: **Starting CareRoute desktop app...**
 ## Step 4 — (Optional) Build a standalone executable
 
 If you want to package the application: **make package**
+
 This generates:
 
 - `dist/careroute` (macOS/Linux)  
@@ -114,6 +115,7 @@ This generates:
 ## Step 5 — (Optional) Clean the project
 
 To remove the virtual environment and build files: **make clean**
+
 This removes:
 
 - `.venv/`  
