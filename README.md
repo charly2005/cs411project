@@ -72,6 +72,7 @@ Follow these steps to install and run the CareRoute desktop application.
 Inside the project folder, create a file named: **.env**
 
 Add your API keys:
+
 GEMINI_API_KEY= PUT KEY HERE
 
 GOOGLE_MAPS_API_KEY= PUT KEY HERE
