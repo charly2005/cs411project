@@ -67,6 +67,46 @@ Follow these steps to install and run the CareRoute desktop application.
 
 ---
 
+## 🔑 Step 0 — Get your API keys
+
+### 0.1 — Get a Gemini API key (GEMINI_API_KEY)
+
+1. Go to **Google AI Studio**:  
+   https://aistudio.google.com  
+2. Sign in with your Google account.  
+3. In the left sidebar, click **API keys** (or “Get API Key”).  
+4. Create a **new API key** for “Gemini API in Google AI Studio”.  
+5. Copy the generated key → this will be your:  
+   GEMINI_API_KEY 
+
+---
+
+### 0.2 — Get a Google Maps API key (GOOGLE_MAPS_API_KEY)
+
+You’ll use **Google Cloud Console** for this.
+
+1. Go to **Google Cloud Console**:  
+   https://console.cloud.google.com  
+2. Sign in with your Google account.  
+3. Create a **new project** (or select an existing one).  
+4. In the left menu, go to **APIs & Services → Library**.  
+5. Enable the following APIs for your project:
+   - **Geocoding API**
+   - **Places API** (for nearby search / details)
+6. Go to **APIs & Services → Credentials**.  
+7. Click **“Create credentials” → “API key”**.  
+8. Copy the generated key → this will be your:  
+   GOOGLE_MAPS_API_KEY  
+9. Click on the key to open settings and:
+   - Under **API restrictions**, restrict it to at least:
+     - Geocoding API  
+     - Places API  
+10. Make sure **billing is enabled** for your Google Cloud project, or the APIs may not work in production.
+
+> Keep this key **secret**. Do not commit it to GitHub or share it publicly.
+
+---
+
 ## **Step 1 — Create a `.env` file**
 
 Inside the project folder, create a file named: **.env**
