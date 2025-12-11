@@ -68,3 +68,8 @@ pytest_cache/
 # Windows
 Thumbs.db
 Desktop.ini
+
+
+history.json
+
+.coverage
