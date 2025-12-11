@@ -167,4 +167,4 @@ This removes:
 1. Install (if missing) coverage with `pip install coverage` (Or via other package manager of choice)
 2. Add coverage to system parameters (This is usually NOT necessary unless the prompt suggests otherwise) 
 3. Run `coverage run unit_test.py`
-4. Wait for the test to conclude and run `cover report` for statistics
+4. Wait for the test to conclude and run `coverage report` for statistics

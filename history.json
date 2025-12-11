@@ -1,5 +1,44 @@
 [
   {
+    "timestamp": "2025-12-11T03:19:47.113329",
+    "symptoms_text": "Mild cough and sore throat",
+    "urgency_level": "CLINIC",
+    "facility_names": [
+      "Clinic A",
+      "Clinic B"
+    ]
+  },
+  {
+    "timestamp": "2025-12-02T19:25:28.209920",
+    "symptoms_text": "I have a really bad headache and my toes are blue",
+    "urgency_level": "ER",
+    "facility_names": [
+      "Mass General Brigham Urgent Care - Brookline",
+      "CHA Cambridge Hospital",
+      "CHA Somerville Campus"
+    ]
+  },
+  {
+    "timestamp": "2025-12-02T19:23:19.942876",
+    "symptoms_text": "papercut",
+    "urgency_level": "CLINIC",
+    "facility_names": [
+      "Davis Square Family Practice",
+      "Atrius Health Somerville",
+      "Atrius Health Boston Copley"
+    ]
+  },
+  {
+    "timestamp": "2025-12-02T19:04:30.568828",
+    "symptoms_text": "headache",
+    "urgency_level": "CLINIC",
+    "facility_names": [
+      "Holtzman Medical Group",
+      "Davis Square Family Practice",
+      "Southern Jamaica Plain Community Health Center"
+    ]
+  },
+  {
     "timestamp": "2025-12-02T16:37:02.974059",
     "symptoms_text": "my hands are blue",
     "urgency_level": "ER",
