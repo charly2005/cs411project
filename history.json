@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2025-12-02T16:37:02.974059",
+    "symptoms_text": "my hands are blue",
+    "urgency_level": "ER",
+    "facility_names": [
+      "Mass General Brigham Urgent Care - Brookline",
+      "CHA Cambridge Hospital",
+      "CHA Somerville Campus"
+    ]
+  },
+  {
+    "timestamp": "2025-12-02T16:35:56.201733",
+    "symptoms_text": "small papercut",
+    "urgency_level": "HOME",
+    "facility_names": [
+      "CVS Pharmacy",
+      "Fenway Health Pharmacy",
+      "Walgreens Pharmacy"
+    ]
+  },
+  {
+    "timestamp": "2025-12-02T16:35:30.784690",
+    "symptoms_text": "small papercut",
+    "urgency_level": "CLINIC",
+    "facility_names": [
+      "Holtzman Medical Group",
+      "Davis Square Family Practice",
+      "Southern Jamaica Plain Community Health Center"
+    ]
+  },
+  {
+    "timestamp": "2025-12-02T16:34:21.949179",
+    "symptoms_text": "stomache",
+    "urgency_level": "CLINIC",
+    "facility_names": [
+      "Holtzman Medical Group",
+      "Davis Square Family Practice",
+      "Southern Jamaica Plain Community Health Center"
+    ]
+  }
+]

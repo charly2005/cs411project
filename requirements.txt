@@ -3,3 +3,6 @@ requests
 google-generativeai
 python-dotenv
 coverage
+SpeechRecognition 
+PyAudio
+PyQt5
