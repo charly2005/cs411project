@@ -171,7 +171,7 @@ This removes:
 
 ## 👥 Contributors
 
-- **Jiahao “Tony” Hu**  
+- **Jiahao Hu**  
   *Project Manager / Backend Developer*  
   - Overall project coordination  
   - AI triage logic (Gemini integration + safety rules)  
