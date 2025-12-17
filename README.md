@@ -168,3 +168,26 @@ This removes:
 2. Add coverage to system parameters (This is usually NOT necessary unless the prompt suggests otherwise) 
 3. Run `coverage run unit_test.py`
 4. Wait for the test to conclude and run `coverage report` for statistics
+
+## 👥 Contributors
+
+- **Jiahao “Tony” Hu**  
+  *Project Manager / Backend Developer*  
+  - Overall project coordination  
+  - AI triage logic (Gemini integration + safety rules)  
+  - Google Maps API integration and facility recommendation logic  
+
+- **Yiguo Yu**  
+  *GUI Developer*  
+  - Desktop UI design and implementation (PySide6)  
+  - User interaction flow and interface optimization  
+
+- **Nofer Xue**  
+  *Testing / GUI Developer*  
+  - Functional testing and edge case validation  
+  - Bug reporting and usability feedback  
+
+- **Charles Yao**  
+  *Backend Developer*  
+  - Model API integration  
+  - Voice Input devlopment
